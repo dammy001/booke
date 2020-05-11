@@ -15,7 +15,9 @@
         "guzzlehttp/guzzle": "^6.3",
         "infyomlabs/coreui-templates": "7.0.x-dev",
         "infyomlabs/laravel-generator": "7.0.x-dev",
+        "jrm2k6/cloudder": "0.4.*",
         "laravel/framework": "^7.0",
+        "laravel/passport": "^9.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1"

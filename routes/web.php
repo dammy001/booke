@@ -19,3 +19,10 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->middleware('verified');
+
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::resource('books', 'Admin\BookController', ["as" => 'admin']);
+    Route::resource('categories', 'Admin\CategoryController', ["as" => 'admin']);
+    Route::resource('users', 'Admin\UserController', ["as" => 'admin']);
+});
