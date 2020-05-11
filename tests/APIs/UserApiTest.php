@@ -28,4 +28,9 @@ class UserApiTest extends TestCase
         ]);
     }
 
+    public function testUserCanLogin()
+    {
+
+    }
+
 }
