@@ -20,10 +20,12 @@ class BookAPIController extends AppBaseController
 {
     /** @var  BookRepository */
     private $bookRepository;
+    private $request;
 
-    public function __construct(BookRepository $bookRepo)
+    public function __construct(BookRepository $bookRepo, Request $request)
     {
         $this->bookRepository = $bookRepo;
+        $this->request = $request;
     }
 
     /**
@@ -36,7 +38,17 @@ class BookAPIController extends AppBaseController
     public function index()
     {
         $books = Book::with('category')->get();
-
         return $this->sendResponse($books->toArray(), 'Books retrieved successfully');
+    }
+
+    public function show($id)
+    {
+       $book = $this->bookRepository->find($id);
+       if(!$book)
+            return $this->sendError('Book not found');
+
+        return $this->sendResponse([
+            'book' => $book
+        ], 'Book details');
     }
 }

@@ -76,4 +76,9 @@ class Book extends Model
         return $this->belongsTo('App\Models\Admin\Category', 'category_id');
     }
 
+    public function image()
+    {
+        return $this->morphOne('App\Models\Image', 'imageable');
+    }
+
 }
