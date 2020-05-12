@@ -88,7 +88,7 @@ class Book extends Model
      **/
     public function category()
     {
-        return $this->belongsTo(\App\Models\Category::class, 'category_id');
+        return $this->belongsTo(\App\Models\Admin\Category::class, 'category_id');
     }
 
     /**

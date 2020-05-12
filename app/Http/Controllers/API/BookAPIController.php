@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\CreateBookAPIRequest;
 use App\Http\Requests\API\UpdateBookAPIRequest;
 use App\Models\Book;
+use App\Models\Admin\Category;
 use App\Repositories\BookRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -34,7 +35,7 @@ class BookAPIController extends AppBaseController
      */
     public function index()
     {
-        $books = $this->bookRepository->all();
+        $books = Book::with('category')->get();
 
         return $this->sendResponse($books->toArray(), 'Books retrieved successfully');
     }

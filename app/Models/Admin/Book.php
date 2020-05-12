@@ -68,7 +68,7 @@ class Book extends Model
         'pages' => 'required',
         'description' => 'required',
         'released' => 'required',
-        'image' => 'required|mimes:jpg,png|max:2040'
+        'image' => 'required'
     ];
 
     public function category()

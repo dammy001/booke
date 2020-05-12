@@ -19,9 +19,9 @@ class CreateBooksTable extends Migration
             $table->string('author');
             $table->string('type');
             $table->string('pages');
-            $table->string('description');
+            $table->text('description');
             $table->string('released');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
