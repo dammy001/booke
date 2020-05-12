@@ -8,6 +8,7 @@ use App\Repositories\UserRepository;
 use App\User;
 use Response;
 use Hash;
+use Exception;
 
 /**
  * Class UserController
@@ -78,6 +79,25 @@ class UserAPIController extends AppBaseController
     {
         $token = $this->request->user()->token()->revoke();
         return $this->sendSuccess('User Logged out successfully');
+    }
+
+    public function updateName()
+    {
+        try {
+            $user = User::query()->findOrFail(auth()->user()->id);
+        }
+        catch (Exception $e) {
+            return $this->sendError('User not found');
+        }
+        $user->update([
+            'name' => $this->request->input('name')
+        ]);
+
+        return $this->sendResponse([
+            'user' => $user
+        ], 'Name Updated Successfully');
+
+
     }
 
 }

@@ -18,6 +18,15 @@ Route::post('register', 'UserAPIController@register')->name('register');
 Route::post('login', 'UserAPIController@login')->name('login');
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::post('details', 'UserAPIController@details')->name('profile');
+
+    Route::post('profile', 'UserAPIController@details')->name('profile');
     Route::post('logout', 'UserAPIController@logout')->name('logout');
+    Route::post('profile/update-name', 'UserAPIController@updateName')->name('profile.update_name');
+
+    Route::get('category', 'CategoryAPIController@index')->name('category');
+    Route::get('book', 'BookAPIController@index')->name('book');
 });
+
+
+
+
