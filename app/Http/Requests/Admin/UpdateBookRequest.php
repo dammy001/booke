@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Admin\Book;
+use App\Models\Book;
 
 class UpdateBookRequest extends FormRequest
 {
@@ -26,7 +26,7 @@ class UpdateBookRequest extends FormRequest
     public function rules()
     {
         $rules = Book::$rules;
-        
+
         return $rules;
     }
 }

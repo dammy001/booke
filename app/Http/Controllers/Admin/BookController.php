@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\CreateBookRequest;
 use App\Http\Requests\Admin\UpdateBookRequest;
-use App\Repositories\Admin\BookRepository;
-use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\BookRepository;
+use App\Repositories\CategoryRepository;
 use App\Http\Controllers\AppBaseController;
+use JD\Cloudder\Facades\Cloudder;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -16,11 +17,13 @@ class BookController extends AppBaseController
     /** @var  BookRepository */
     private $bookRepository;
     private $categoryRepository;
+    private $request;
 
-    public function __construct(BookRepository $bookRepo, CategoryRepository $categoryRepo)
+    public function __construct(BookRepository $bookRepo, CategoryRepository $categoryRepo, Request $request)
     {
         $this->bookRepository = $bookRepo;
         $this->categoryRepository = $categoryRepo;
+        $this->request = $request;
     }
 
     /**
@@ -61,10 +64,21 @@ class BookController extends AppBaseController
      */
     public function store(CreateBookRequest $request)
     {
-        $input = $request->all();
-        $input['user_id'] = auth()->user()->id;
 
-        $book = $this->bookRepository->create($input);
+        $image = $request->file('image');
+        $result = $this->bookRepository->upload('book', $image);
+
+        $book = $this->bookRepository->create([
+            'title' => $request->title,
+            'author' => $request->author,
+            'type' => $request->type,
+            'pages' => $request->pages,
+            'category_id' => $request->category_id,
+            'description' => $request->description,
+            'released' => $request->released,
+            'image' => $result['secure_url'],
+            'user_id' => auth()->user()->id
+        ]);
 
         Flash::success('Book saved successfully.');
 

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Admin\Book;
+use App\Models\Book;
 
 class CreateBookRequest extends FormRequest
 {

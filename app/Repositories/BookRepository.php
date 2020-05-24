@@ -3,7 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Book;
+use App\Models\Category;
 use App\Repositories\BaseRepository;
+use Illuminate\Http\UploadedFile;
+use JD\Cloudder\Facades\Cloudder;
 
 /**
  * Class BookRepository
@@ -45,4 +48,24 @@ class BookRepository extends BaseRepository
     {
         return Book::class;
     }
+
+    public function upload($folder, UploadedFile $image): array
+    {
+        return Cloudder::upload($image->getRealPath(), null, ['folder' => $folder], [])->getResult();
+    }
+
+    public function category()
+    {
+        return $this->model->with('category')->get();
+    }
+
+    public function justIn()
+    {
+        return $this->model->with('category')
+        ->orderBy('created_at', 'desc')
+        ->take(5)
+        ->get();
+    }
+
+
 }

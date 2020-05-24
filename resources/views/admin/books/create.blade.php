@@ -18,7 +18,7 @@
                                 <strong>Create Book</strong>
                             </div>
                             <div class="card-body">
-                                {!! Form::open(['route' => 'admin.books.store']) !!}
+                                {!! Form::open(['route' => 'admin.books.store', 'files' => true]) !!}
 
                                    @include('admin.books.fields')
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Admin\Category;
+use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -32,7 +32,16 @@ class CategoryAPIController extends AppBaseController
      */
     public function index()
     {
-        $categories = $this->categoryRepository->all();
+        $categories = $this->categoryRepository->with('books')->get();
         return $this->sendResponse($categories->toArray(), 'Categories retrieved successfully');
+    }
+
+    public function show($id)
+    {
+        $books = $this->categoryRepository->find($id);
+        if($books)
+            return $this->sendResponse([
+                'books' => $books->with('books')->get()
+            ],  'Category with books');
     }
 }

@@ -10,6 +10,15 @@
             "port": 3306,
             "server": "localhost",
             "username": "root"
+        },
+        {
+            "askForPassword": false,
+            "database": "myprojectng",
+            "dialect": "MySQL",
+            "name": "localhost",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
         }
     ]
 }

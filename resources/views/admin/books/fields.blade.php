@@ -43,7 +43,7 @@
 
 <div class="form-group col-sm-6">
     {!! Form::label('image', 'Image:') !!}
-    {!! Form::file('image', null) !!}
+    {!! Form::file('image', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->

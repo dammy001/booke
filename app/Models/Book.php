@@ -62,7 +62,6 @@ class Book extends Model
         'description' => 'string',
         'released' => 'string',
         'image' => 'string',
-        'user_id' => 'integer',
         'category_id' => 'integer'
     ];
 
@@ -78,8 +77,7 @@ class Book extends Model
         'pages' => 'required',
         'description' => 'required',
         'released' => 'required',
-        //'image' => 'required',
-        'user_id' => 'required',
+        'image' => 'required|mimes:jpeg,png,jpg|max:2048',
         'category_id' => 'required'
     ];
 
@@ -98,4 +96,5 @@ class Book extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
+
 }

@@ -12,10 +12,12 @@ class UserApiTest extends TestCase
 
     public function testUserCanRegister()
     {
+        $user = factory(User::class)->make();
+
         $res = $this->postJson('api/register', [
-            'name' => $this->faker->name,
-            'email' => $this->faker->email,
-            'password' => 'damilare',
+            'name' => $user->name,
+            'email' => $user->email,
+            'password' => $user->password,
         ]);
 
         $res->dump()->assertSuccessful()->assertJsonStructure([

@@ -24,14 +24,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('profile/update-name', 'UserAPIController@updateName')->name('profile.update_name');
 
     Route::get('category', 'CategoryAPIController@index')->name('category');
+    Route::get('category/{id}', 'CategoryAPIController@show')->name('category.show');
 
     Route::get('book', 'BookAPIController@index')->name('book');
-    Route::get('book/{id}', 'BookAPIController@show')->name('book');
+    Route::get('just-in', 'BookAPIController@justIn')->name('justin');
+    Route::get('book/{id}', 'BookAPIController@show')->name('book.show');
 });
-
-
-
-
-
-
-Route::resource('images', 'ImageAPIController');

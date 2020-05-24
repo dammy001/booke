@@ -83,12 +83,9 @@ class UserAPIController extends AppBaseController
 
     public function updateName()
     {
-        try {
-            $user = User::query()->findOrFail(auth()->user()->id);
-        }
-        catch (Exception $e) {
-            return $this->sendError('User not found');
-        }
+
+        $user = User::query()->findOrFail(auth()->user()->id);
+
         $user->update([
             'name' => $this->request->input('name')
         ]);
