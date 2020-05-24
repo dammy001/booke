@@ -47,7 +47,12 @@ class BookAPIController extends AppBaseController
        if(!$book)
             return $this->sendError('Book not found');
 
-        return $this->sendResponse($book->toArray(), 'Book details');
+        $related = $this->bookRepository->related($id);
+
+        return $this->sendResponse([
+            'book' => $book,
+            'related' => $related
+        ], 'Book details');
     }
 
     public function justIn()

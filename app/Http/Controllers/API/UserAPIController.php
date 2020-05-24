@@ -72,7 +72,7 @@ class UserAPIController extends AppBaseController
     public function details()
     {
         $user = auth()->user();
-        return $this->sendSuccess($user);
+        return $this->sendSuccess($user->toArray());
     }
 
     public function logout()
@@ -83,18 +83,28 @@ class UserAPIController extends AppBaseController
 
     public function updateName()
     {
-
-        $user = User::query()->findOrFail(auth()->user()->id);
+        $user = $this->findUser();
 
         $user->update([
             'name' => $this->request->input('name')
         ]);
 
-        return $this->sendResponse([
-            'user' => $user
-        ], 'Name Updated Successfully');
+        return $this->sendResponse($user->toArray(), 'Name Updated Successfully');
+    }
 
+    public function updatePhone()
+    {
+        $user = $this->findUser();
 
+        $user->update([
+            'phone' => $this->request->input('phone')
+        ]);
+        return $this->sendResponse($user->toArray(),'Name Updated Successfully');
+    }
+
+    protected function findUser()
+    {
+        return User::query()->findOrFail(auth()->user()->id);
     }
 
 }

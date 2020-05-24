@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('profile', 'UserAPIController@details')->name('profile');
     Route::post('logout', 'UserAPIController@logout')->name('logout');
     Route::post('profile/update-name', 'UserAPIController@updateName')->name('profile.update_name');
+    Route::post('profile/update-phone', 'UserAPIController@updatePhone')->name('profile.update_phone');
 
     Route::get('category', 'CategoryAPIController@index')->name('category');
     Route::get('category/{id}', 'CategoryAPIController@show')->name('category.show');

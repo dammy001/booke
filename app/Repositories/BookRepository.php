@@ -67,5 +67,16 @@ class BookRepository extends BaseRepository
         ->get();
     }
 
+    public function related($id)
+    {
+        $book = $this->model->newQuery()->where('id', $id)->first();
+
+        $related = $this->model->where('category_id','=',$book->category_id)
+        ->take(6)
+        ->get(['title', 'author', 'image']);
+
+        return $related;
+    }
+
 
 }

@@ -2,26 +2,28 @@
     <table class="table table-striped" id="books-table">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Title</th>
-        <th>Author</th>
-        <th>Type</th>
-        <th>Pages</th>
-        <th>Category</th>
-        <th>Description</th>
-        <th>Released</th>
+                <th>Author</th>
+                <th>Type</th>
+                <th>Pages</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Released</th>
                 <th colspan="3">Action</th>
             </tr>
         </thead>
         <tbody>
         @foreach($books as $book)
             <tr>
+                <td><img src="{{ $book->image }}" width="100" height="100"></td>
                 <td>{{ $book->title }}</td>
-            <td>{{ $book->author }}</td>
-            <td>{{ $book->type }}</td>
-            <td>{{ $book->pages }}</td>
-            <td>{{ $book->category->name }}</td>
-            <td>{{ $book->description }}</td>
-            <td>{{ $book->released }}</td>
+                <td>{{ $book->author }}</td>
+                <td>{{ $book->type }}</td>
+                <td>{{ $book->pages }}</td>
+                <td>{{ $book->category->name }}</td>
+                <td>{{ $book->description }}</td>
+                <td>{{ $book->released }}</td>
                 <td>
                     {!! Form::open(['route' => ['admin.books.destroy', $book->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

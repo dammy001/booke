@@ -1,3 +1,9 @@
+<!-- Image Field -->
+<div class="form-group">
+    {!! Form::label('image', 'Image:') !!}
+    <p><img src="{{ $book->image }}" width="200" height="200"></p>
+</div>
+
 <!-- Title Field -->
 <div class="form-group">
     {!! Form::label('title', 'Title:') !!}
