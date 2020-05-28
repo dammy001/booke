@@ -37,7 +37,7 @@ class BookAPIController extends AppBaseController
      */
     public function index()
     {
-        $books = $this->bookRepository->with('category')->get();
+        $books = Book::with('category')->get();
         return $this->sendResponse($books->toArray(), 'Books retrieved successfully');
     }
 
@@ -47,11 +47,13 @@ class BookAPIController extends AppBaseController
        if(!$book)
             return $this->sendError('Book not found');
 
-        $related = $this->bookRepository->related($id);
+        $related = $this->bookRepository->related($book);
+        $booksByAuthor = $this->bookRepository->booksByAuthor($book);
 
         return $this->sendResponse([
             'book' => $book,
-            'related' => $related
+            'related' => $related,
+            'authorBooks' => $booksByAuthor
         ], 'Book details');
     }
 

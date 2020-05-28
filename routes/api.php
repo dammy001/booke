@@ -30,4 +30,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('book', 'BookAPIController@index')->name('book');
     Route::get('just-in', 'BookAPIController@justIn')->name('justin');
     Route::get('book/{id}', 'BookAPIController@show')->name('book.show');
+
+    Route::post('library', 'LibraryController@save')->name('library.save');
 });

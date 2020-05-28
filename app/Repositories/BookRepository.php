@@ -67,15 +67,23 @@ class BookRepository extends BaseRepository
         ->get();
     }
 
-    public function related($id)
+    public function related($book)
     {
-        $book = $this->model->newQuery()->where('id', $id)->first();
-
-        $related = $this->model->where('category_id','=',$book->category_id)
+        $related = $this->model->query()->where('category_id',$book->id)
+        ->whereNotIn('id', [$book->id])
         ->take(6)
         ->get(['title', 'author', 'image']);
 
         return $related;
+    }
+
+    public function booksByAuthor($book)
+    {
+        $author = $this->model->query()->where('author', $book->author)
+        ->take(5)
+        ->get(['title', 'author', 'image']);
+
+        return $author;
     }
 
 

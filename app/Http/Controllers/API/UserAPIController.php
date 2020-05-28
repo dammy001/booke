@@ -32,7 +32,7 @@ class UserAPIController extends AppBaseController
         $this->request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:6',
         ]);
 
         $user = $this->userRepository->findEmail($this->request->input('email'));
