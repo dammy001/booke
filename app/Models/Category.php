@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,15 +16,14 @@ class Category extends Model
 {
     use SoftDeletes;
 
-    public $table = 'categories';
-
-
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'name'
+    ];
+
+    protected $hidden = [
+        'created_at', 'updated_at', 'deleted_at'
     ];
 
     /**
@@ -48,7 +47,7 @@ class Category extends Model
 
     public function books()
     {
-        return $this->hasMany('App\Models\Admin\Book', 'category_id');
+        return $this->hasMany(\App\Models\Book::class, 'category_id');
     }
 
 

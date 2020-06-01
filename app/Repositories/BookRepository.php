@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Repositories\BaseRepository;
 use Illuminate\Http\UploadedFile;
 use JD\Cloudder\Facades\Cloudder;
+use Carbon\Carbon;
 
 /**
  * Class BookRepository
@@ -65,6 +66,12 @@ class BookRepository extends BaseRepository
         ->orderBy('created_at', 'desc')
         ->take(5)
         ->get();
+    }
+
+    public function popular()
+    {
+
+        return $this->model->whereBetween('created_at', [Carbon::now(), now()->subDays(2)])->get();
     }
 
     public function related($book)

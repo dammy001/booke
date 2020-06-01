@@ -19,7 +19,7 @@ Route::post('login', 'UserAPIController@login')->name('login');
 
 Route::group(['middleware' => 'auth:api'], function(){
 
-    Route::post('profile', 'UserAPIController@details')->name('profile');
+    Route::get('profile', 'UserAPIController@details')->name('profile');
     Route::post('logout', 'UserAPIController@logout')->name('logout');
     Route::post('profile/update-name', 'UserAPIController@updateName')->name('profile.update_name');
     Route::post('profile/update-phone', 'UserAPIController@updatePhone')->name('profile.update_phone');
@@ -29,7 +29,11 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get('book', 'BookAPIController@index')->name('book');
     Route::get('just-in', 'BookAPIController@justIn')->name('justin');
+    Route::get('popular', 'BookAPIController@popular')->name('popular');
+
     Route::get('book/{id}', 'BookAPIController@show')->name('book.show');
 
     Route::post('library', 'LibraryController@save')->name('library.save');
+    Route::get('library', 'LibraryController@library')->name('library');
+    Route::get('libary/delete/{id}', 'LibraryController@deleteLibrary')->name('library.delete');
 });

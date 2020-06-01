@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Admin\Category;
+use App\Models\Category;
 use App\Repositories\BaseRepository;
 
 /**
@@ -28,6 +28,11 @@ class CategoryRepository extends BaseRepository
     public function getFieldsSearchable()
     {
         return $this->fieldSearchable;
+    }
+
+    public function category()
+    {
+        return $this->model->all();
     }
 
     /**

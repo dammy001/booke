@@ -37,7 +37,7 @@ class BookAPIController extends AppBaseController
      */
     public function index()
     {
-        $books = Book::with('category')->get();
+        $books = $this->bookRepository->category();
         return $this->sendResponse($books->toArray(), 'Books retrieved successfully');
     }
 
@@ -60,6 +60,12 @@ class BookAPIController extends AppBaseController
     public function justIn()
     {
         $books = $this->bookRepository->justIn();
-        return $this->sendSuccess($books->toArray());
+        return $this->sendResponse($books->toArray(), 'Books Retrieved Successfully');
+    }
+
+    public function popular()
+    {
+        $books = $this->bookRepository->popular();
+        return $this->sendResponse($books->toArray(), 'Books Retrieved Successfully');
     }
 }

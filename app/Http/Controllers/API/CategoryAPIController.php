@@ -32,7 +32,7 @@ class CategoryAPIController extends AppBaseController
      */
     public function index()
     {
-        $categories = $this->categoryRepository->with('books')->get();
+        $categories = $this->categoryRepository->category();
         return $this->sendResponse($categories->toArray(), 'Categories retrieved successfully');
     }
 

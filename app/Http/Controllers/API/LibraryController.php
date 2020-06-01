@@ -4,14 +4,19 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Models\Library;
+use App\Http\Controllers\AppBaseController;
+use App\Models\Book;
+use Response;
 
-class LibraryController extends Controller
+class LibraryController extends AppBaseController
 {
     private $request;
+    private $library;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, Library $library)
     {
         $this->request = $request;
+        $this->library = $library;
     }
 
     public function save()
@@ -20,15 +25,38 @@ class LibraryController extends Controller
             'book_id' => 'required'
         ]);
 
-        $check = Library::findOrFail($this->request->input('book_id'));
+        $check = $this->library->find($this->request->input('book_id'));
+        if(!$check){
 
-        if($check)
-            return $this->sendError('Book already exists');
+            $this->library->create([
+                'book_id' => $this->request->input('book_id'),
+                'user_id' => auth()->user()->id
+            ]);
+            return $this->sendSuccess('Book added to library');
+        }
+        return $this->sendError('book added already');
+    }
 
-        $check->user()->create([
-            'book_id' => $this->request->input('book_id')
-        ]);
-        return $this->sendSuccess('Book added to library');
+    public function library()
+    {
+        $myLibrary = $this->library->where('user_id', auth()->user()->id)->get(['book_id', 'created_at']);
+        return $this->sendResponse($myLibrary->toArray(), 'success');
+    }
 
+    public function deleteLibrary($id)
+    {
+        $book_id = $this->library
+                    ->where('book_id', $id)
+                    ->where('user_id', auth()->user()->id)
+                    ->get();
+
+        $book_id->delete();
+        return $this->sendSuccess('Book deleted from library');
+
+    }
+
+    protected function books($id)
+    {
+        return Book::where('id', $id)->get();
     }
 }
