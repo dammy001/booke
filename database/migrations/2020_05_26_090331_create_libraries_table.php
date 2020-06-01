@@ -15,8 +15,8 @@ class CreateLibrariesTable extends Migration
     {
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('book_id')->constrained();
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('book_id')->references('id')->on('books');
             $table->timestamps();
             $table->softDeletes();
         });

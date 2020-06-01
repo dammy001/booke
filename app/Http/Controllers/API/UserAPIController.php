@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\UserRepository;
+use App\Events\UserRegistered;
 use App\User;
 use Response;
 use Hash;
@@ -42,8 +43,12 @@ class UserAPIController extends AppBaseController
         $user = $this->userRepository->create([
             'name' => $this->request->input('name'),
             'email' => $this->request->input('email'),
-            'password' => Hash::make($this->request->input('password'))
+            'verified' => 1,
+            'password' => Hash::make($this->request->input('password')),
+            'email_token' => base64_encode(sha1($this->request->input('email')))
         ]);
+
+        event(new UserRegistered($user));
 
         return $this->sendResponse([
             'user' => $user,

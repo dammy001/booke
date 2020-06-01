@@ -9,9 +9,10 @@ $factory->define(User::class, function (Faker $faker) {
 
     return [
         'name' => $faker->title,
-        'email' => $faker->unique()->safeEmail,
-        'password' => 'damilare',
-        'created_at' => $faker->date('Y-m-d H:i:s'),
-        'updated_at' => $faker->date('Y-m-d H:i:s')
+        'email' => 'damilareanjorin@gmail.com',
+        'isAdmin' => 1,
+        'verified' => 1,
+        'password' => Hash::make('damilare001'),
+        'created_at' => now()
     ];
 });
