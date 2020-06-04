@@ -102,4 +102,9 @@ class Book extends Model
         return $this->morphMany('App\Models\Comment', 'commentable');
     }
 
+    public function ratings()
+    {
+        return $this->hasMany(\App\Models\Rating::class);
+    }
+
 }

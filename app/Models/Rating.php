@@ -16,14 +16,14 @@ class Rating extends Model
     use SoftDeletes;
 
     public $table = 'ratings';
-    
+
 
     protected $dates = ['deleted_at'];
 
 
 
     public $fillable = [
-        
+        'user_id', 'book_id', 'rating'
     ];
 
     /**
@@ -41,8 +41,13 @@ class Rating extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
+    public function book()
+    {
+        return $this->belongsTo(\App\Models\Book::class);
+    }
+
+
 }
