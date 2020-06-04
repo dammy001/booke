@@ -6,6 +6,7 @@ use App\Http\Requests\API\CreateBookAPIRequest;
 use App\Http\Requests\API\UpdateBookAPIRequest;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Repositories\BookRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;

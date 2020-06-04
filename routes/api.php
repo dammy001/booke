@@ -35,5 +35,11 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post('library', 'LibraryController@save')->name('library.save');
     Route::get('library', 'LibraryController@library')->name('library');
-    Route::get('libary/delete/{id}', 'LibraryController@deleteLibrary')->name('library.delete');
+    Route::get('library/delete/{id}', 'LibraryController@deleteLibrary')->name('library.delete');
+
+    Route::post('comment', 'CommentAPIController@save')->name('comment.save');
+    Route::get('comment/{id}', 'CommentAPIController@comments')->name('comment');
 });
+
+
+Route::resource('ratings', 'RatingAPIController');

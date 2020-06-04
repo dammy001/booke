@@ -12,8 +12,10 @@ class Library extends Model
     protected $table = "libraries";
 
     protected $fillable = [
-        'book_id', 'user_id'
+        'book_id', 'user_id', 'title', 'image'
     ];
+
+    protected $hidden = ['updated_at'];
 
     public function user()
     {

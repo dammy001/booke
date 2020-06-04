@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Book;
 use App\Models\Category;
 use App\Repositories\BaseRepository;
+use App\Models\Comment;
 use Illuminate\Http\UploadedFile;
 use JD\Cloudder\Facades\Cloudder;
 use Carbon\Carbon;

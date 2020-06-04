@@ -5,58 +5,50 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Models\Library;
 use App\Http\Controllers\AppBaseController;
-use App\Models\Book;
+use App\Repositories\LibraryRepository;
+use App\Repositories\BookRepository;
 use Response;
 
 class LibraryController extends AppBaseController
 {
     private $request;
-    private $library;
+    private $libraryRepository;
+    private $bookRepository;
 
-    public function __construct(Request $request, Library $library)
+    public function __construct(Request $request, LibraryRepository $libraryRepository, BookRepository $bookRepository)
     {
         $this->request = $request;
-        $this->library = $library;
+        $this->libraryRepo = $libraryRepository;
+        $this->bookRepo = $bookRepository;
     }
 
     public function save()
     {
-        $this->request->validate([
-            'book_id' => 'required'
-        ]);
+        $book = $this->bookRepo->find($this->request->input('book_id'));
 
-        $check = $this->library->find($this->request->input('book_id'));
-        if(!$check){
+        $findBookId = Library::query()
+            ->where('user_id', auth()->user()->id)
+            ->where('book_id', $book->id)
+            ->first();
 
-            $this->library->create([
-                'book_id' => $this->request->input('book_id'),
-                'user_id' => auth()->user()->id
-            ]);
-            return $this->sendSuccess('Book added to library');
+        if(!$findBookId){
+            $get = $this->libraryRepo->save($book, auth()->user());
+            return $this->sendResponse($get->toArray(), 'Book added successfully');
         }
-        return $this->sendError('book added already');
+        return $this->sendError('Book Added Already');
     }
 
     public function library()
     {
-        $myLibrary = $this->library->where('user_id', auth()->user()->id)->get(['book_id', 'created_at']);
+        $myLibrary = $this->libraryRepo->library(auth()->user());
+
         return $this->sendResponse($myLibrary->toArray(), 'success');
     }
 
     public function deleteLibrary($id)
     {
-        $book_id = $this->library
-                    ->where('book_id', $id)
-                    ->where('user_id', auth()->user()->id)
-                    ->get();
-
-        $book_id->delete();
-        return $this->sendSuccess('Book deleted from library');
-
-    }
-
-    protected function books($id)
-    {
-        return Book::where('id', $id)->get();
+        $delete = $this->libraryRepo->deleteBook($id, auth()->user());
+            if($delete)
+                return $this->sendSuccess('Book Deleted From Library');
     }
 }
